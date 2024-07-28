@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Evaluate Rule</title>
+</head>
+<body>
+    <h1>Evaluate Rule</h1>
+    <form id="evaluateRuleForm">
+        <input type="text" name="rule_id" placeholder="Rule ID">
+        <textarea name="data" placeholder='{"age": 35, "department": "Sales"}'></textarea>
+        <button type="submit">Evaluate</button>
+    </form>
+    <div id="result"></div>
+    <script>
+        document.getElementById('evaluateRuleForm').onsubmit = function(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            fetch('/evaluate-rule/', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerText = JSON.stringify(data);
+            });
+        }
+    </script>
+</body>
+</html>
